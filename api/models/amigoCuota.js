@@ -1,5 +1,14 @@
 const mongoose = require('mongoose');
 
+/*
+  unidad: 
+  cantidad: 
+  periodo: 
+  conductor:
+  fecha: 
+  usuario: 
+  comentarios: 
+*/
 var CuotaSchema = new mongoose.Schema({
   unidad: {
     type: Number,

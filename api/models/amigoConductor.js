@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
+/**
+  conductor
+  apPaterno
+  apMaterno
+  unidad
+  direccion
+  telefono
+  contactoEmergencia
+  telefonoEmergencia
+ */
 
 var AmigoConductorSchema = new mongoose.Schema({
   nombre: {
-    type: Number,
+    type: String,
     required: true
   },
   apPaterno: {
@@ -10,11 +20,11 @@ var AmigoConductorSchema = new mongoose.Schema({
     required: true
   },
   apMaterno: {
-    type: Number,
+    type: String,
     required: true
   },
   unidad: {
-    type: String,
+    type: Number,
     required: true
   },
   direccion: String,

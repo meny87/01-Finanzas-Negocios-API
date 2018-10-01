@@ -1,5 +1,19 @@
 const mongoose = require('mongoose');
-
+/**
+ * numero:
+  marca: 
+  modelo: 
+  dueno: 
+  contactoDueno:
+  placas:
+  aseguradora:
+  polizaSeguro:
+  contactoAseguradora:
+  puertas:
+  lugares:
+  ac:
+  bt:
+ */
 var UnidadSchema = new mongoose.Schema({
   numero: {
     type: Number,
@@ -39,8 +53,8 @@ var UnidadSchema = new mongoose.Schema({
   },
   puertas: Number,
   lugares: Number,
-  ac: Boolean,
-  bt: Boolean
+  ac: String,
+  bt: String
 });
 
 module.exports = mongoose.model('AmigoUnidad', UnidadSchema);

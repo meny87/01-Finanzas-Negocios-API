@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+/*
+unidad
+motivo
+cantidad
+conductor
+fecha
+usuario
+ */
 var AmigoPenSchema = new mongoose.Schema({
   unidad: {
     type: Number,

@@ -1,7 +1,6 @@
 {
   "name": "01-finanzas-negocios-api",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +10,17 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
+    "lodash": "^4.17.11",
     "mongoose": "^5.3.0",
     "morgan": "^1.9.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meny87/01-Finanzas-Negocios-API.git"
+  },
+  "bugs": {
+    "url": "https://github.com/meny87/01-Finanzas-Negocios-API/issues"
+  },
+  "homepage": "https://github.com/meny87/01-Finanzas-Negocios-API#readme",
+  "description": ""
 }

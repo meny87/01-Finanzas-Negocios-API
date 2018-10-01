@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 
+/*
+cantidad
+concepto
+fecha
+usuario
+*/
 var EgresoSchema = new mongoose.Schema({
   cantidad: {
     type: Number,
