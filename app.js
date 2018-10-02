@@ -1,20 +1,17 @@
 require('./config/config');
 
 const express = require('express');
+const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-
-
 const mongoose = require("./db/mongoose");
-
-
-const app = express();
 
 const amigoCuotasRoutes = require("./api/routes/amigoCuotas");
 const amigoPenalizacionRoutes = require("./api/routes/amigoPenalizaciones");
 const amigoEgresosRoutes = require("./api/routes/amigoEgresos");
 const amigoConductoresRoutes = require("./api/routes/amigoConductores");
 const amigoUnidadesRoutes = require("./api/routes/amigoUnidades");
+const userRoutes = require('./api/routes/user');
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +36,7 @@ app.use("/amigoPenalizaciones", amigoPenalizacionRoutes);
 app.use("/amigoEgresos", amigoEgresosRoutes);
 app.use("/amigoConductores", amigoConductoresRoutes);
 app.use("/amigoUnidades", amigoUnidadesRoutes);
+app.use("/user", userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
