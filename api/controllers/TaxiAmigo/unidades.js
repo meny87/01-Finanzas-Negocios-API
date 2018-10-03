@@ -1,18 +1,14 @@
-const express = require('express');
-const router = express.Router();
 const mongoose = require("mongoose");
-const _ = require('lodash');
+const Unidad = require("../../models/TaxiAmigo/unidad");
 
-const Conductor = require("../models/amigoConductor");
-
-router.get('/', (req, res, next) => {
-    Conductor.find()
+unidades_get_all = (req, res, next) => {
+    Unidad.find()
         .exec()
-        .then(conductor => {
-            if (conductor.length > 0) {
-                res.status(200).json(conductor);
+        .then(unidad => {
+            if (unidad.length > 0) {
+                res.status(200).json(unidad);
             } else {
-                res.status(200).json({ message: 'Conductores not fetched' });
+                res.status(200).json({ message: 'Unidades not fetched' });
             };
         })
         .catch(err => {
@@ -20,24 +16,28 @@ router.get('/', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-router.post('/', (req, res, next) => {
+unidades_create_new =(req, res, next) => {
     var req_body = req.body;
 
-    const conductor = new Conductor({
+    const unidad = new Unidad({
         _id: new mongoose.Types.ObjectId(),
-        nombre: req_body.nombre,
-        apPaterno: req_body.apPaterno,
-        apMaterno: req_body.apMaterno,
-        unidad: req_body.unidad,
-        direccion: req_body.direccion,
-        telefono: req_body.telefono,
-        contactoEmergencia: req_body.contactoEmergencia,
-        telefonoEmergencia: req_body.telefonoEmergencia
+        numero: req_body.numero,
+        marca: req_body.marca,
+        modelo: req_body.modelo,
+        dueno: req_body.dueno,
+        contactoDueno: req_body.contactoDueno,
+        placas: req_body.placas,
+        aseguradora: req_body.aseguradora,
+        polizaSeguro: req_body.polizaSeguro,
+        contactoAseguradora: req_body.contactoAseguradora,
+        puertas: req_body.puertas,
+        lugares: req_body.lugares,
+        ac: req_body.ac,
+        bt: req_body.bt
     });
-
-    conductor
+    unidad
         .save()
         .then(result => {
             console.log(result);
@@ -52,9 +52,9 @@ router.post('/', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-router.get("/:conductroId", (req, res, next) => {
+unidades_get_unidad =(req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
         .exec()
@@ -72,11 +72,11 @@ router.get("/:conductroId", (req, res, next) => {
             console.log(err);
             res.status(500).json({ error: err });
         });
-});
+};
 
-router.delete('/:conductorId', (req, res, next) => {
-    const id = req.params.conductorId;
-    Conductor.remove({ _id: id })
+unidades_delete_unidad =(req, res, next) => {
+    const id = req.params.unidadId;
+    Unidad.remove({ _id: id })
         .exec()
         .then(result => {
             res.status(200).json(result);
@@ -87,15 +87,15 @@ router.delete('/:conductorId', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-router.patch('/:conductorId', (req, res, next) => {
-    const id = req.params.conductorId;
+unidades_update_unidad =(req, res, next) => {
+    const id = req.params.unidadId;
     const updateOps = {};
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    Conductor.update({ _id: id }, { $set: updateOps })
+    Unidad.update({ _id: id }, { $set: updateOps })
         .exec()
         .then(result => {
             console.log(result);
@@ -107,5 +107,6 @@ router.patch('/:conductorId', (req, res, next) => {
                 error: err
             });
         });
-});
-module.exports = router;
+};
+
+module.exports = {unidades_get_all, unidades_create_new};

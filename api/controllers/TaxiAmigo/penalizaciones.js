@@ -1,17 +1,15 @@
-const express = require('express');
-const router = express.Router();
 const mongoose = require("mongoose");
 
-const Cuota = require("../models/amigoCuota");
+const Penalizacion = require("../../models/TaxiAmigo/penalizacion");
 
-router.get('/', (req, res, next) => {
-    Cuota.find()
+penalizaciones_get_all = (req, res, next) => {
+    Penalizacion.find()
         .exec()
-        .then(cuota => {
-            if (cuota.length > 0) {
-                res.status(200).json(cuota);
+        .then(penalizacion => {
+            if (penalizacion.length > 0) {
+                res.status(200).json(penalizacion);
             } else {
-                res.status(200).json({ message: 'Cuotas not fetched' });
+                res.status(200).json({ message: 'Penalizaciones not fetched' });
             };
         })
         .catch(err => {
@@ -19,19 +17,18 @@ router.get('/', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-router.post('/', (req, res, next) => {
+penalizaciones_create_new =(req, res, next) => {
     var req_body = req.body;
 
     const cuota = new Cuota({
         _id: new mongoose.Types.ObjectId(),
         unidad: req_body.unidad,
+        motivo: req_body.motivo,
         cantidad: req_body.cantidad,
-        periodo: req_body.periodo,
         conductor: req_body.conductor,
-        usuario: req_body.usuario,
-        comentarios: req_body.comentarios
+        usuario: req_body.usuario
     });
     cuota
         .save()
@@ -48,11 +45,11 @@ router.post('/', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-router.delete('/:cuotaId', (req, res, next) => {
-    const id = req.params.cuotaId;
-    Cuota.remove({ _id: id })
+penalizaciones_delete_penalizacion = (req, res, next) => {
+    const id = req.params.penalizacionId;
+    Penalizacion.remove({ _id: id })
         .exec()
         .then(result => {
             res.status(200).json(result);
@@ -63,6 +60,6 @@ router.delete('/:cuotaId', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-module.exports = router;
+module.exports = {penalizaciones_get_all, penalizaciones_create_new, penalizaciones_delete_penalizacion};

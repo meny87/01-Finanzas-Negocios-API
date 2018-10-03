@@ -6,11 +6,11 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("./db/mongoose");
 
-const amigoCuotasRoutes = require("./api/routes/amigoCuotas");
-const amigoPenalizacionRoutes = require("./api/routes/amigoPenalizaciones");
-const amigoEgresosRoutes = require("./api/routes/amigoEgresos");
-const amigoConductoresRoutes = require("./api/routes/amigoConductores");
-const amigoUnidadesRoutes = require("./api/routes/amigoUnidades");
+const amigoCuotasRoutes = require("./api/routes/TaxiAmigo/cuotas");
+const amigoPenalizacionRoutes = require("./api/routes/TaxiAmigo/penalizaciones");
+const amigoEgresosRoutes = require("./api/routes/TaxiAmigo/egresos");
+const amigoConductoresRoutes = require("./api/routes/TaxiAmigo/conductores");
+const amigoUnidadesRoutes = require("./api/routes/TaxiAmigo/unidades");
 const userRoutes = require('./api/routes/user');
 
 app.use(morgan("dev"));

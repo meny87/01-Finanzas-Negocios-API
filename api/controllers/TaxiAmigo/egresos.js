@@ -1,17 +1,14 @@
-const express = require('express');
-const router = express.Router();
 const mongoose = require("mongoose");
+const Egreso = require("../../models/TaxiAmigo/egreso");
 
-const Penalizacion = require("../models/amigoPenalizacion");
-
-router.get('/', (req, res, next) => {
-    Penalizacion.find()
+egresos_get_all = (req, res, next) => {
+    Egreso.find()
         .exec()
-        .then(penalizacion => {
-            if (penalizacion.length > 0) {
-                res.status(200).json(penalizacion);
+        .then(egreso => {
+            if (egreso.length > 0) {
+                res.status(200).json(egreso);
             } else {
-                res.status(200).json({ message: 'Penalizaciones not fetched' });
+                res.status(200).json({ message: 'Egresos not fetched' });
             };
         })
         .catch(err => {
@@ -19,20 +16,18 @@ router.get('/', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-router.post('/', (req, res, next) => {
+egresos_create_new = (req, res, next) => {
     var req_body = req.body;
 
-    const cuota = new Cuota({
+    const egreso = new Egreso({
         _id: new mongoose.Types.ObjectId(),
-        unidad: req_body.unidad,
-        motivo: req_body.motivo,
         cantidad: req_body.cantidad,
-        conductor: req_body.conductor,
+        concepto: req_body.concepto,
         usuario: req_body.usuario
     });
-    cuota
+    egreso
         .save()
         .then(result => {
             console.log(result);
@@ -47,12 +42,11 @@ router.post('/', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-
-router.delete('/:penalizacionId', (req, res, next) => {
-    const id = req.params.penalizacionId;
-    Penalizacion.remove({ _id: id })
+egresos_delete_egreso = (req, res, next) => {
+    const id = req.params.egresoId;
+    Egreso.remove({ _id: id })
         .exec()
         .then(result => {
             res.status(200).json(result);
@@ -63,7 +57,6 @@ router.delete('/:penalizacionId', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-
-module.exports = router;
+module.exports = { egresos_get_all, egresos_create_new, egresos_delete_egreso };

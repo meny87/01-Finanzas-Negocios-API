@@ -1,16 +1,14 @@
-const express = require('express');
-const router = express.Router();
 const mongoose = require("mongoose");
+const Cuota = require("../../models/TaxiAmigo/cuota");
 
-const Egreso = require("../models/amigoEgreso");
-router.get('/', (req, res, next) => {
-    Egreso.find()
+cuotas_get_all = (req, res, next) => {
+    Cuota.find()
         .exec()
-        .then(egreso => {
-            if (egreso.length > 0) {
-                res.status(200).json(egreso);
+        .then(cuota => {
+            if (cuota.length > 0) {
+                res.status(200).json(cuota);
             } else {
-                res.status(200).json({ message: 'Egresos not fetched' });
+                res.status(200).json({ message: 'Cuotas not fetched' });
             };
         })
         .catch(err => {
@@ -18,18 +16,21 @@ router.get('/', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-router.post('/', (req, res, next) => {
+cuotas_create_new = (req, res, next) => {
     var req_body = req.body;
 
-    const egreso = new Egreso({
+    const cuota = new Cuota({
         _id: new mongoose.Types.ObjectId(),
+        unidad: req_body.unidad,
         cantidad: req_body.cantidad,
-        concepto: req_body.concepto,
-        usuario: req_body.usuario
+        periodo: req_body.periodo,
+        conductor: req_body.conductor,
+        usuario: req_body.usuario,
+        comentarios: req_body.comentarios
     });
-    egreso
+    cuota
         .save()
         .then(result => {
             console.log(result);
@@ -44,12 +45,11 @@ router.post('/', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-
-router.delete('/:egresoId', (req, res, next) => {
-    const id = req.params.egresoId;
-    Egreso.remove({ _id: id })
+cuotas_delete_cuota = (req, res, next) => {
+    const id = req.params.cuotaId;
+    Cuota.remove({ _id: id })
         .exec()
         .then(result => {
             res.status(200).json(result);
@@ -60,6 +60,6 @@ router.delete('/:egresoId', (req, res, next) => {
                 error: err
             });
         });
-});
+};
 
-module.exports = router;
+module.exports = { cuotas_get_all, cuotas_create_new, cuotas_delete_cuota };
